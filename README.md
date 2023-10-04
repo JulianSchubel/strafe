@@ -6,3 +6,5 @@
  |____/ |_| |_| \_\/_/   \_\_|   |_____|
 
 ```
+
+#  Strafe is a retro vertical scroller "shoot'em up" game
