@@ -18,6 +18,7 @@ private:
     /* processEvents: handles user input. Will close the window if a sf::Event::Closed event occurs */
     void processEvents();
     void update();
+    void update(sf::Time);
     void render();
 
     /* handlePlayerInput: handles player input from keyboard */
@@ -26,4 +27,9 @@ private:
 private:
     sf::RenderWindow mWindow;
     sf::CircleShape mPlayer;
+
+    bool mIsMovingUp;
+    bool mIsMovingDown;
+    bool mIsMovingLeft;
+    bool mIsMovingRight;
 };
