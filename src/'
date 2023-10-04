@@ -16,16 +16,12 @@ GameState::GameState() : mWindow(sf::VideoMode(640, 480), "SFML Application"),
 
 /* run: the main game loop */
 void GameState::run() {
-    /* utility class that measures elapsed time */
-    sf::Clock clock;
     /* each iteration is a frame / tick. FPS = iterations per second */
     while(mWindow.isOpen()) {
-        /* reset clock and time duration of frame */
-        sf::Time deltaTime = clock.restart();
         /* process input events */
         processEvents();
         /* update game state */
-        update(deltaTime);
+        update();
         /* render game state */
         render();
     }
@@ -73,43 +69,25 @@ void GameState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 
 /* update: update the game state */
 void GameState::update() {
-    /* typedef of sf::Vector2<float>. Represents a vector in R2 space (2 dimensional) */
+    /* typedef of sf::Vector2<float> */
     sf::Vector2f movement(0.f, 0.f);
     if(mIsMovingUp) {
-        movement.y -= PRELUDE::BASE_PLAYER_SPEED;
+        movement.y -= 1.f;
     }
     if(mIsMovingDown) {
-        movement.y += PRELUDE::BASE_PLAYER_SPEED;
+        movement.y += 1.f;
     }
     if(mIsMovingLeft) {
-        movement.x -= PRELUDE::BASE_PLAYER_SPEED;
+        movement.x -= 1.f;
     }
     if(mIsMovingRight) {
-        movement.x += PRELUDE::BASE_PLAYER_SPEED;
+        movement.x += 1.f;
     }
 
     mPlayer.move(movement);
 }
 
-/* update: overloaded, frame-independent movement; use distance = speed * time to have momvement directly proportional to frame time */
-void GameState::update(sf::Time deltaTime) {
-    sf::Vector2f movement(0.f, 0.f);
-    if(mIsMovingUp) {
-        movement.y -= PRELUDE::BASE_PLAYER_SPEED;
-    }
-    if(mIsMovingDown) {
-        movement.y += PRELUDE::BASE_PLAYER_SPEED;
-    }
-    if(mIsMovingLeft) {
-        movement.x -= PRELUDE::BASE_PLAYER_SPEED;
-    }
-    if(mIsMovingRight) {
-        movement.x += PRELUDE::BASE_PLAYER_SPEED;
-    }
-
-    /* amount to move = kM where M is the set movement increment and k the time since the start of the frame */
-    mPlayer.move(movement * deltaTime.asSeconds());
-}
+/* update: overloaded, frame-independent movement; use distance = speed * time to limit movement relative to frame time */
 
 /* render: renders the current game state to the screen */
 void GameState::render() {
@@ -120,3 +98,6 @@ void GameState::render() {
     /*  */
     mWindow.display();
 }
+
+
+
